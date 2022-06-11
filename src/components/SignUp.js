@@ -18,6 +18,8 @@ export default function SignUp() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState(false);
 
+    const [passwordError, setPasswordError] = useState({});
+
     // Handling the name change
     const handleName = (e) => {
         setName(e.target.value);
@@ -59,18 +61,37 @@ export default function SignUp() {
     // Handling the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (name === '' 
-            || email === '' 
-            || password === '' 
+        const isValid = formValidation();
+
+        if (name === ''
+            || email === ''
+            || password === ''
+            || !isValid
             || address === ''
             || lastName === ''
-            ) {
+        ) {
             setError(true);
         } else {
             setIsSubmitted(true);
             setError(false);
         }
     };
+
+    const formValidation = () => {
+        const passwordError = {}
+
+        let isValid = true;
+
+        if (password.trim().length < 8) {
+            passwordError.passwordShort = "Password minimo: 8 caracteres";
+            isValid = false;
+        }
+
+        setPasswordError(passwordError);
+
+        return isValid;
+
+    }
 
     // Showing error message if error is true
     const renderErrorMessage = () => {
@@ -101,6 +122,7 @@ export default function SignUp() {
                             <label className="label">Nombre*</label>
                             <input onChange={handleName} className="input"
                                 value={name} type="text" />
+                            
                         </div>
 
                         <div className="input-container">
@@ -131,6 +153,9 @@ export default function SignUp() {
                             <label className="label">Password*</label>
                             <input onChange={handlePassword} className="input"
                                 value={password} type="password" />
+                                { Object.keys(passwordError).map((key)=>{
+                                return <div style={{color:"red"}}>{passwordError[key]}</div>
+                            })}
                         </div>
 
                         <div className="input-container">
