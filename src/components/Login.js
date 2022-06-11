@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Styles.css"
+import "./LoginStyles.css"
 
 function Login() {
   // React States
@@ -44,8 +44,8 @@ function Login() {
           setErrorMessages({ name: "pass", message: errors.blocked });
         }
       } else {
-          setIsSubmitted(true);
-        }
+        setIsSubmitted(true);
+      }
     } else {
       // Username not found
       setErrorMessages({ name: "uname", message: errors.uname });
