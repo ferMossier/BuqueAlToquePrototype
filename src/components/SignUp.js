@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
-import Header from "./Header"
-import "./SignUpStyles.css"
+import Header from "./Header";
+import "./SignUpStyles.css";
 
 export default function SignUp() {
 
@@ -13,13 +13,17 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
     const [dni, setDni] = useState('');
-    const [creditCard, setCreditCard] = useState('');
+    const [creditCardNumber, setCreditCardNumber] = useState('');
+    const [creditCardCode, setCreditCardCode] = useState('');
+
 
     // States for checking the errors
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState(false);
 
     const [passwordError, setPasswordError] = useState({});
+    const [ccCodeError, setCCCodeError] = useState({});
+    const [ccNumberError, setCCNumberError] = useState({});
 
     // Handling the name change
     const handleName = (e) => {
@@ -54,8 +58,13 @@ export default function SignUp() {
         setIsSubmitted(false);
     };
 
-    const handleCreditCard = (e) => {
-        setCreditCard(e.target.value);
+    const handleCreditCardNumber = (e) => {
+        setCreditCardNumber(e.target.value);
+        setIsSubmitted(false);
+    };
+
+    const handleCreditCardCode = (e) => {
+        setCreditCardCode(e.target.value);
         setIsSubmitted(false);
     };
 
@@ -79,16 +88,29 @@ export default function SignUp() {
     };
 
     const formValidation = () => {
-        const passwordError = {}
+        const passwordError = {};
+        const ccCodeError = {};
+        const ccNumberError = {};
 
         let isValid = true;
 
         if (password.trim().length < 8) {
             passwordError.passwordShort = "Password minimo: 8 caracteres";
-            isValid = false;
+            isValid = isValid && false;
+        }
+        if ((creditCardCode.trim().length !== 3 && creditCardCode.trim().length !== 0) || !(/^(\s*|\d+)$/.test(creditCardCode))) {
+            ccCodeError.wrongCode = "Codigo de seguridad incorrecto"
+            isValid = isValid && false;
+        }
+        if ((creditCardNumber.trim().length !== 16 && creditCardNumber.trim().length !== 0) || !(/^(\s*|\d+)$/.test(creditCardNumber))) {
+            ccNumberError.wrongNumber = "Numero de Tarjeta incorrecto"
+            isValid = isValid && false;
         }
 
+
         setPasswordError(passwordError);
+        setCCCodeError(ccCodeError);
+        setCCNumberError(ccNumberError);
 
         return isValid;
 
@@ -163,8 +185,16 @@ export default function SignUp() {
 
                             <div className="input-container">
                                 <label className="label">Tarjeta de crédito</label>
-                                <input onChange={handleCreditCard} className="input"
-                                    value={creditCard} type="password" />
+                                <input placeHolder="Numero de Tarjeta" onChange={handleCreditCardNumber} className="input"
+                                    value={creditCardNumber} type="text" />
+                                {Object.keys(ccNumberError).map((key) => {
+                                    return <div style={{ color: "red" }}>{ccNumberError[key]}</div>
+                                })}
+                                <input placeHolder="Codigo de seguridad" onChange={handleCreditCardCode} className="input"
+                                    value={creditCardCode} type="text" />
+                                {Object.keys(ccCodeError).map((key) => {
+                                    return <div style={{ color: "red" }}>{ccCodeError[key]}</div>
+                                })}
                             </div>
 
                             <div className="button-container">
