@@ -9,9 +9,24 @@ import card6 from '../img/img6.jpg'
 import card7 from '../img/img7.jpg'
 import card8 from '../img/img8.jpg'
 import cal from './datepicker.css'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./SignUpStyles.css"
 
+
+
 export default function Home() {
+
+    const [checkInDate, setCheckInDate] = useState();
+    const [checkOutDate, setCheckOutDate] = useState();
+
+    const handleCheckInDate = (checkInDate) => {
+        setCheckInDate(checkInDate);
+    };
+
+    const handleCheckOutDate = (checkOutDate) => {
+        setCheckOutDate(checkOutDate);
+    };
 
     return (
         <>
@@ -25,7 +40,7 @@ export default function Home() {
                             <nav className="navbar navbar-expand-lg narbar-light">
                                 <a className="navbar-brand mr-auto" href="/#">
                                     <img src={logo} alt="Site logo" />
-                                     Buque Al Toque
+                                    Buque Al Toque
                                 </a>
                                 <button type="button" id="nav-toggle" className="navbar-toggler collapsed" data-toggle="collapse"
                                     data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +59,12 @@ export default function Home() {
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link" href="#sec-contact">Contactanos</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#sec-contact">Registrate</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#sec-contact">Login</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -68,14 +89,14 @@ export default function Home() {
                                             </div>
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-in" type="text" className="form-control" id="inputCheckIn"
-                                                    placeholder="Check In" />
+                                                <DatePicker selected={checkInDate} onChange={handleCheckInDate} name="check-in" type="text" className="form-control" id="inputCheckIn"
+                                                    placeholderText="Check In"/>
                                             </div>
 
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-out" type="text" className="form-control" id="inputCheckOut"
-                                                    placeholder="Check Out" />
+                                                <DatePicker selected={checkOutDate} onChange={handleCheckOutDate} name="check-out" type="text" className="form-control" id="inputCheckOut"
+                                                    placeholderText="Check Out" />
                                             </div>
                                         </div>
                                         <div className="form-row tm-search-form-row">
