@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import logo from '../img/logo.png'
-import card1 from '../img/img1.jpg'
-import card2 from '../img/img2.jpg'
-import card3 from '../img/img3.jpg'
-import card4 from '../img/img4.jpeg'
-import card5 from '../img/img5.jpeg'
-import card6 from '../img/img6.jpg'
-import card7 from '../img/img7.jpg'
-import card8 from '../img/img8.jpg'
-import cal from './datepicker.css'
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+import logo from '../img/logo.png';
+import card1 from '../img/img1.jpg';
+import card2 from '../img/img2.jpg';
+import card3 from '../img/img3.jpg';
+import card4 from '../img/img4.jpeg';
+import card5 from '../img/img5.jpeg';
+import card6 from '../img/img6.jpg';
+import card7 from '../img/img7.jpg';
+import card8 from '../img/img8.jpg';
+import cal from './datepicker.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./SignUpStyles.css"
-
-
+import "./SignUpStyles.css";
 
 export default function Home() {
 
@@ -61,10 +60,10 @@ export default function Home() {
                                             <a className="nav-link" href="#sec-contact">Contactanos</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href="#sec-contact">Registrate</a>
+                                            <Link to="/SignUp" className="nav-link">Registrate</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href="#sec-contact">Login</a>
+                                            <Link to="/Login" className="nav-link">Login</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,14 +87,14 @@ export default function Home() {
                                                 </select>
                                             </div>
                                             <div className="form-group tm-form-element tm-form-element-50">
-                                                <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <DatePicker selected={checkInDate} onChange={handleCheckInDate} dateFormat="dd-MM-yyyy" name="check-in" type="text" className="form-control" id="inputCheckIn"
+                                                {/* <i className="fa fa-calendar fa-2x tm-form-element-icon"></i> */}
+                                                <DatePicker autoComplete='off' selected={checkInDate} onChange={handleCheckInDate} dateFormat="dd-MM-yyyy" name="check-in" type="text" className="form-control" id="inputCheckIn"
                                                     placeholderText="Check In"/>
                                             </div>
 
                                             <div className="form-group tm-form-element tm-form-element-50">
-                                                <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <DatePicker selected={checkOutDate} onChange={handleCheckOutDate} dateFormat="dd-MM-yyyy" name="check-out" type="text" className="form-control" id="inputCheckOut"
+                                                {/* <i className="fa fa-calendar fa-2x tm-form-element-icon"></i> */}
+                                                <DatePicker autoComplete='off' selected={checkOutDate} onChange={handleCheckOutDate} dateFormat="dd-MM-yyyy" name="check-out" type="text" className="form-control" id="inputCheckOut"
                                                     placeholderText="Check Out" />
                                             </div>
                                         </div>
