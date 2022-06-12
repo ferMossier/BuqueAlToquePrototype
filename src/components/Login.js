@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import Header from "./Header"
 import "./LoginStyles.css"
 
-function Login() {
+
+export default function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -81,13 +83,14 @@ function Login() {
   );
 
   return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Log In</div>
-        {isSubmitted ? <Navigate to="/" /> : renderForm}
+    <>
+      <Header />
+      <div className="app">
+        <div className="login-form">
+          <div className="title">Log In</div>
+          {isSubmitted ? <Navigate to="/" /> : renderForm}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default Login;

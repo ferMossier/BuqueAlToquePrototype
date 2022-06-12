@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Login from "./Login"
+import { Navigate } from "react-router-dom";
+import Header from "./Header"
 import "./SignUpStyles.css"
 
 export default function SignUp() {
@@ -107,71 +108,74 @@ export default function SignUp() {
     };
 
     return (
-        <div className='app'>
-            {isSubmitted ? <Login /> :
-                <div className="signup-form">
-                    <div>
-                        <h1>Sign Up</h1>
+        <>
+            <Header />
+            <div className='app'>
+                {isSubmitted ? <Navigate to="/Login" /> :
+                    <div className="signup-form">
+                        <div>
+                            <h1>Sign Up</h1>
+                        </div>
+
+                        {/* Calling to the methods */}
+
+                        <form onSubmit={handleSubmit}>
+                            {/* Labels and inputs for form data */}
+                            <div className="input-container">
+                                <label className="label">Nombre*</label>
+                                <input onChange={handleName} className="input"
+                                    value={name} type="text" />
+
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">Apellido*</label>
+                                <input onChange={handleLastName} className="input"
+                                    value={lastName} type="text" />
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">DNI</label>
+                                <input onChange={handleDni} className="input"
+                                    value={dni} type="text" />
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">Email*</label>
+                                <input onChange={handleEmail} className="input"
+                                    value={email} type="email" />
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">Domicilio*</label>
+                                <input onChange={handleAddress} className="input"
+                                    value={address} type="text" />
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">Password*</label>
+                                <input onChange={handlePassword} className="input"
+                                    value={password} type="password" />
+                                {Object.keys(passwordError).map((key) => {
+                                    return <div style={{ color: "red" }}>{passwordError[key]}</div>
+                                })}
+                            </div>
+
+                            <div className="input-container">
+                                <label className="label">Tarjeta de crédito</label>
+                                <input onChange={handleCreditCard} className="input"
+                                    value={creditCard} type="password" />
+                            </div>
+
+                            <div className="button-container">
+                                <input type="submit" />
+                            </div>
+
+                            {renderErrorMessage()}
+                        </form>
                     </div>
-
-                    {/* Calling to the methods */}
-
-                    <form onSubmit={handleSubmit}>
-                        {/* Labels and inputs for form data */}
-                        <div className="input-container">
-                            <label className="label">Nombre*</label>
-                            <input onChange={handleName} className="input"
-                                value={name} type="text" />
-                            
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">Apellido*</label>
-                            <input onChange={handleLastName} className="input"
-                                value={lastName} type="text" />
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">DNI</label>
-                            <input onChange={handleDni} className="input"
-                                value={dni} type="text" />
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">Email*</label>
-                            <input onChange={handleEmail} className="input"
-                                value={email} type="email" />
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">Domicilio*</label>
-                            <input onChange={handleAddress} className="input"
-                                value={address} type="text" />
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">Password*</label>
-                            <input onChange={handlePassword} className="input"
-                                value={password} type="password" />
-                                { Object.keys(passwordError).map((key)=>{
-                                return <div style={{color:"red"}}>{passwordError[key]}</div>
-                            })}
-                        </div>
-
-                        <div className="input-container">
-                            <label className="label">Tarjeta de crédito</label>
-                            <input onChange={handleCreditCard} className="input"
-                                value={creditCard} type="password" />
-                        </div>
-
-                        <div className="button-container">
-                            <input type="submit" />
-                        </div>
-
-                        {renderErrorMessage()}
-                    </form>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        </>
     );
 }
