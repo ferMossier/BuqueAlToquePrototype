@@ -89,13 +89,13 @@ export default function Home() {
                                             </div>
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <DatePicker selected={checkInDate} onChange={handleCheckInDate} name="check-in" type="text" className="form-control" id="inputCheckIn"
+                                                <DatePicker selected={checkInDate} onChange={handleCheckInDate} dateFormat="dd-MM-yyyy" name="check-in" type="text" className="form-control" id="inputCheckIn"
                                                     placeholderText="Check In"/>
                                             </div>
 
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 <i className="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <DatePicker selected={checkOutDate} onChange={handleCheckOutDate} name="check-out" type="text" className="form-control" id="inputCheckOut"
+                                                <DatePicker selected={checkOutDate} onChange={handleCheckOutDate} dateFormat="dd-MM-yyyy" name="check-out" type="text" className="form-control" id="inputCheckOut"
                                                     placeholderText="Check Out" />
                                             </div>
                                         </div>
