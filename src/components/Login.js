@@ -92,7 +92,7 @@ export default function Login() {
       <div className="app">
         <div className="login-form">
           <div className="title">Log In</div>
-          {isSubmitted ? <Navigate to="/" /> : renderForm}
+          {isSubmitted ? <Navigate to="/ValidationCode" /> : renderForm}
         </div>
       </div>
     </>
