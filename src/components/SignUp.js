@@ -6,12 +6,12 @@ import "./SignUpStyles.css";
 export default function SignUp() {
 
     // States for registration
-
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
+    const [streetNumber, setStreetNumber] = useState('');
     const [dni, setDni] = useState('');
     const [creditCardNumber, setCreditCardNumber] = useState('');
     const [creditCardCode, setCreditCardCode] = useState('');
@@ -20,10 +20,10 @@ export default function SignUp() {
     // States for checking the errors
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState(false);
-
     const [passwordError, setPasswordError] = useState({});
     const [ccCodeError, setCCCodeError] = useState({});
     const [ccNumberError, setCCNumberError] = useState({});
+    const [streetNumberError, setStreetNumberError] = useState({})
 
     // Handling the name change
     const handleName = (e) => {
@@ -31,6 +31,7 @@ export default function SignUp() {
         setIsSubmitted(false);
     };
 
+    // Handling the last name change
     const handleLastName = (e) => {
         setLastName(e.target.value);
         setIsSubmitted(false);
@@ -48,37 +49,48 @@ export default function SignUp() {
         setIsSubmitted(false);
     };
 
-    const handleAddress = (e) => {
-        setAddress(e.target.value);
+    // Handling the Address change
+    const handleStreet = (e) => {
+        setStreet(e.target.value);
         setIsSubmitted(false);
     };
 
+    const handleStreetNumber = (e) => {
+        setStreetNumber(e.target.value);
+        setIsSubmitted(false);
+    };
+
+    // Handling the DNI change
     const handleDni = (e) => {
         setDni(e.target.value);
         setIsSubmitted(false);
     };
 
+    // Handling the credit card number change
     const handleCreditCardNumber = (e) => {
         setCreditCardNumber(e.target.value);
         setIsSubmitted(false);
     };
 
+    // Handling the credit card code change
     const handleCreditCardCode = (e) => {
         setCreditCardCode(e.target.value);
         setIsSubmitted(false);
     };
 
-    // Handling the form submission
+    // Handling the form submission and validations
     const handleSubmit = (event) => {
         event.preventDefault();
         const isValid = formValidation();
 
-        if (name === ''
+        if (!isValid
+            || name === ''
             || email === ''
             || password === ''
-            || !isValid
-            || address === ''
+            || street === ''
             || lastName === ''
+            || streetNumber === ''
+            || dni === ''
         ) {
             setError(true);
         } else {
@@ -87,10 +99,12 @@ export default function SignUp() {
         }
     };
 
+    // General validations
     const formValidation = () => {
         const passwordError = {};
         const ccCodeError = {};
         const ccNumberError = {};
+        const streetNumberError = {};
 
         let isValid = true;
 
@@ -106,11 +120,16 @@ export default function SignUp() {
             ccNumberError.wrongNumber = "Numero de Tarjeta incorrecto"
             isValid = isValid && false;
         }
+        if (!(/^(\s*|\d+)$/.test(streetNumber))) {
+            streetNumberError.wrongNumber = "Numero de calle incorrecto"
+            isValid = isValid && false;
+        }
 
 
         setPasswordError(passwordError);
         setCCCodeError(ccCodeError);
         setCCNumberError(ccNumberError);
+        setStreetNumberError(streetNumberError);
 
         return isValid;
 
@@ -136,7 +155,7 @@ export default function SignUp() {
                 {isSubmitted ? <Navigate to="/Login" /> :
                     <div className="signup-form">
                         <div>
-                            <h1>Sign Up</h1>
+                            <h1>Regístrate</h1>
                         </div>
 
                         {/* Calling to the methods */}
@@ -157,7 +176,7 @@ export default function SignUp() {
                             </div>
 
                             <div className="input-container">
-                                <label className="label">DNI</label>
+                                <label className="label">DNI*</label>
                                 <input onChange={handleDni} className="input"
                                     value={dni} type="text" />
                             </div>
@@ -170,8 +189,23 @@ export default function SignUp() {
 
                             <div className="input-container">
                                 <label className="label">Domicilio*</label>
-                                <input onChange={handleAddress} className="input"
-                                    value={address} type="text" />
+                                <input
+                                    onChange={handleStreet}
+                                    placeholder="Nombre de calle"
+                                    className="input"
+                                    value={street}
+                                    type="text"
+                                />
+                                <input
+                                    onChange={handleStreetNumber}
+                                    placeholder="Numero"
+                                    className="input"
+                                    value={streetNumber}
+                                    type="text"
+                                />
+                                {Object.keys(streetNumberError).map((key) => {
+                                    return <div style={{ color: "red" }}>{streetNumberError[key]}</div>
+                                })}
                             </div>
 
                             <div className="input-container">
@@ -184,7 +218,13 @@ export default function SignUp() {
                             </div>
 
                             <div className="input-container">
-                                <label className="label">Tarjeta de crédito</label>
+                            <label className="label">Medios de pago</label>
+                                <select name="Medios de pago">
+                                    <option value="Tarjeta de Credito">Tarjeta de crédito</option>
+                                    <option value="Transferencia" disabled>Transferencia bancaria</option>
+                                    <option value="MercadoPago" disabled>MercadoPago</option>
+                                    <option value="PagoFacil" disabled>PagoFácil</option>
+                                </select>
                                 <input placeHolder="Numero de Tarjeta" onChange={handleCreditCardNumber} className="input"
                                     value={creditCardNumber} type="text" />
                                 {Object.keys(ccNumberError).map((key) => {

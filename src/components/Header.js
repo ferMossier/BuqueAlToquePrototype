@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Link } from "react-router-dom";
 import logo from '../img/logo.png';
-import "./SignUpStyles.css";
+ import "./SignUpStyles.css";
 
 export default function Header() {
 
@@ -35,10 +35,10 @@ export default function Header() {
                                     <a className="nav-link" href="#sec-contact">Contactanos</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/SignUp" className="nav-link">Registrate</Link>
+                                    <Link  to="/SignUp" className="nav-link">Registrate</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/Login" className="nav-link">Login</Link>
+                                    <Link  to="/Login" className="nav-link">Login</Link>
                                 </li>
                             </ul>
                         </div>

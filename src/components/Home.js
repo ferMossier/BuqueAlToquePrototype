@@ -17,6 +17,8 @@ export default function Home() {
 
     const [checkInDate, setCheckInDate] = useState();
     const [checkOutDate, setCheckOutDate] = useState();
+    const [error, setError] = useState(false);
+    
 
     const handleCheckInDate = (checkInDate) => {
         setCheckInDate(checkInDate);
@@ -26,6 +28,27 @@ export default function Home() {
         setCheckOutDate(checkOutDate);
     };
 
+    const renderErrorMessage = () => {
+        return (
+            <div
+                className="error"
+                style={{
+                    display: error ? '' : 'none',
+                }}>
+                <div>La fecha de Checkout no puede ser anterior a la de Checkin</div>
+            </div>
+        );
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if(checkOutDate<checkInDate){
+            setError(true);
+        }
+        else{
+            setError(false);
+        }
+    }
     return (
         <>
             <link rel="stylesheet" type="text/css" href={cal} />
@@ -37,32 +60,53 @@ export default function Home() {
                         <div className="container ie-h-align-center-fix">
                             <div className="row">
                                 <div className="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                    <form action="index.html" method="get" className="tm-search-form tm-section-pad-2">
+                                    <form onSubmit={handleSubmit} className="tm-search-form tm-section-pad-2">
                                         <div className="form-row tm-search-form-row">
                                             <div className="form-group tm-form-element tm-form-element-100">
                                                 <i className="fa fa-map-marker fa-2x tm-form-element-icon"></i>
                                                 <select name="adult" className="form-control tm-select" id="adult">
-                                                    <option value="">Seleccione su destino</option>
                                                     <option value="1">Buenos Aires</option>
                                                     <option value="2">Uruguay</option>
                                                 </select>
                                             </div>
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 {/* <i className="fa fa-calendar fa-2x tm-form-element-icon"></i> */}
-                                                <DatePicker autoComplete='off' selected={checkInDate} onChange={handleCheckInDate} dateFormat="dd-MM-yyyy" name="check-in" type="text" className="form-control" id="inputCheckIn"
-                                                    placeholderText="Check In"/>
+                                                <DatePicker 
+                                                    autoComplete='off' 
+                                                    selected={checkInDate} 
+                                                    onChange={handleCheckInDate} 
+                                                    dateFormat="dd-MM-yyyy" 
+                                                    name="check-in" 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="inputCheckIn"
+                                                    placeholderText="Check In"
+                                                    onKeyDown={e=>{e.preventDefault();}}
+                                                    minDate={new Date()}
+                                                />
                                             </div>
 
                                             <div className="form-group tm-form-element tm-form-element-50">
                                                 {/* <i className="fa fa-calendar fa-2x tm-form-element-icon"></i> */}
-                                                <DatePicker autoComplete='off' selected={checkOutDate} onChange={handleCheckOutDate} dateFormat="dd-MM-yyyy" name="check-out" type="text" className="form-control" id="inputCheckOut"
-                                                    placeholderText="Check Out" />
+                                                <DatePicker 
+                                                    autoComplete='off' 
+                                                    selected={checkOutDate} 
+                                                    onChange={handleCheckOutDate} 
+                                                    dateFormat="dd-MM-yyyy" 
+                                                    name="check-out" 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="inputCheckOut"
+                                                    placeholderText="Check Out" 
+                                                    onKeyDown={e=>{e.preventDefault();}}
+                                                    minDate={new Date()}
+                                                />
+                                                {renderErrorMessage()}
                                             </div>
                                         </div>
                                         <div className="form-row tm-search-form-row">
                                             <div className="form-group tm-form-element tm-form-element-2">
                                                 <select name="adult" className="form-control tm-select" id="adult">
-                                                    <option value="">Adulto</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -78,7 +122,6 @@ export default function Home() {
                                             </div>
                                             <div className="form-group tm-form-element tm-form-element-2">
                                                 <select name="children" className="form-control tm-select" id="children">
-                                                    <option value="">Chicos</option>
                                                     <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>

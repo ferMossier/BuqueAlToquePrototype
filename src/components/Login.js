@@ -13,11 +13,15 @@ export default function Login() {
   // User Login info
   const database = [
     {
-      username: "user1",
-      password: "abcd1234", //Alfanumérico de 8 caracteres
+      username: "mossierfernando@gmail.com",
+      password: "1234aaaa",
     },
     {
-      username: "user2",
+      username: "user1@g.com",
+      password: "abcd1234",
+    },
+    {
+      username: "user2@g.com",
       password: "abcd4321",
     }
   ];
