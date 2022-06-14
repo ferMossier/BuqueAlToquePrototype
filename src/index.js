@@ -8,6 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import SearchResult from "./components/SearchResult";
 import ValidationCode from './components/ValidationCode';
 import {
   BrowserRouter,
@@ -23,6 +24,7 @@ root.render(
       <Route path="/Login" element={<Login />} />
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/ValidationCode" element={<ValidationCode />} />
+      <Route path="/SearchResult" element={<SearchResult />} />
     </Routes>
   </BrowserRouter>
 );

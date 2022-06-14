@@ -174,7 +174,7 @@ export default function SignUp() {
 
                         {/* Calling to the methods */}
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className="signup-form2">
                             {/* Labels and inputs for form data */}
                             <div className="input-container">
                                 <label className="label">Nombre*</label>
