@@ -24,6 +24,8 @@ export default function SignUp() {
     const [ccCodeError, setCCCodeError] = useState({});
     const [ccNumberError, setCCNumberError] = useState({});
     const [streetNumberError, setStreetNumberError] = useState({})
+    const [nameError, setNameError] = useState({})
+    const [lastNameError, setLastNameError] = useState({})
 
     // Handling the name change
     const handleName = (e) => {
@@ -105,11 +107,13 @@ export default function SignUp() {
         const ccCodeError = {};
         const ccNumberError = {};
         const streetNumberError = {};
+        const nameError = {};
+        const lastNameError = {};
 
         let isValid = true;
 
-        if (password.trim().length < 8) {
-            passwordError.passwordShort = "Password minimo: 8 caracteres";
+        if (password.trim().length < 8 || !(/^(?=[^\s]*?[0-9])(?=[^\s]*?[a-zA-Z])[a-zA-Z0-9]*$/.test(password))) {
+            passwordError.passwordWrong = "Combinar letras y numeros. Superar los 7 caracteres";
             isValid = isValid && false;
         }
         if ((creditCardCode.trim().length !== 3 && creditCardCode.trim().length !== 0) || !(/^(\s*|\d+)$/.test(creditCardCode))) {
@@ -124,12 +128,21 @@ export default function SignUp() {
             streetNumberError.wrongNumber = "Numero de calle incorrecto"
             isValid = isValid && false;
         }
-
+        if (!(/^([^0-9]*)$/.test(name))) {
+            nameError.wrongName = "Nombre con formato incorrecto"
+            isValid = isValid && false;
+        }
+        if (!(/^([^0-9]*)$/.test(lastName))) {
+            lastNameError.wrongLastName = "Apellido con formato incorrecto"
+            isValid = isValid && false;
+        }
 
         setPasswordError(passwordError);
         setCCCodeError(ccCodeError);
         setCCNumberError(ccNumberError);
         setStreetNumberError(streetNumberError);
+        setNameError(nameError);
+        setLastNameError(lastNameError);
 
         return isValid;
 
@@ -166,13 +179,18 @@ export default function SignUp() {
                                 <label className="label">Nombre*</label>
                                 <input onChange={handleName} className="input"
                                     value={name} type="text" />
-
+                                {Object.keys(nameError).map((key) => {
+                                    return <div style={{ color: "red" }}>{nameError[key]}</div>
+                                })}
                             </div>
 
                             <div className="input-container">
                                 <label className="label">Apellido*</label>
                                 <input onChange={handleLastName} className="input"
                                     value={lastName} type="text" />
+                                {Object.keys(lastNameError).map((key) => {
+                                    return <div style={{ color: "red" }}>{lastNameError[key]}</div>
+                                })}
                             </div>
 
                             <div className="input-container">
@@ -218,7 +236,7 @@ export default function SignUp() {
                             </div>
 
                             <div className="input-container">
-                            <label className="label">Medios de pago</label>
+                                <label className="label">Medios de pago</label>
                                 <select name="Medios de pago">
                                     <option value="Tarjeta de Credito">Tarjeta de crédito</option>
                                     <option value="Transferencia" disabled>Transferencia bancaria</option>
